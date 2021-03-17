@@ -1,0 +1,185 @@
+<div>
+  <div *ngIf="currentBitcoin.id" class="edit-form">
+    <h4>Bitcoin</h4>
+    <form>
+      <div class="form-group">
+        <label for="date">date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="date"
+          [(ngModel)]="currentBitcoin.date"
+          name="date"
+        />
+      </div>
+      <div class="form-group">
+        <label for="txVolume">txVolume</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txVolume"
+          [(ngModel)]="currentBitcoin.txVolume"
+          name="txVolume"
+        />
+      </div>
+      <div class="form-group">
+        <label for="adjustedTxVolume">adjustedTxVolume</label>
+        <input
+          type="text"
+          class="form-control"
+          id="adjustedTxVolume"
+          [(ngModel)]="currentBitcoin.adjustedTxVolume"
+          name="adjustedTxVolume"
+        />
+      </div>
+      <div class="form-group">
+        <label for="txCount">txCount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txCount"
+          [(ngModel)]="currentBitcoin.txCount"
+          name="txCount"
+        />
+      </div>
+      <div class="form-group">
+        <label for="marketCap">marketCap</label>
+        <input
+          type="text"
+          class="form-control"
+          id="marketCap"
+          [(ngModel)]="currentBitcoin.marketCap"
+          name="marketCap"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price">price</label>
+        <input
+          type="text"
+          class="form-control"
+          id="price"
+          [(ngModel)]="currentBitcoin.price"
+          name="price"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exchangeVolume">exchangeVolume</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exchangeVolume"
+          [(ngModel)]="currentBitcoin.exchangeVolume"
+          name="exchangeVolume"
+        />
+      </div>
+      <div class="form-group">
+        <label for="generatedCoins">generatedCoins</label>
+        <input
+          type="text"
+          class="form-control"
+          id="generatedCoins"
+          [(ngModel)]="currentBitcoin.generatedCoins"
+          name="generatedCoins"
+        />
+      </div>
+      <div class="form-group">
+        <label for="fees">fees</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fees"
+          [(ngModel)]="currentBitcoin.fees"
+          name="fees"
+        />
+      </div>
+      <div class="form-group">
+        <label for="activeAddresses">activeAddresses</label>
+        <input
+          type="text"
+          class="form-control"
+          id="activeAddresses"
+          [(ngModel)]="currentBitcoin.activeAddresses"
+          name="activeAddresses"
+        />
+      </div>
+      <div class="form-group">
+        <label for="averageDifficulty">averageDifficulty</label>
+        <input
+          type="text"
+          class="form-control"
+          id="averageDifficulty"
+          [(ngModel)]="currentBitcoin.averageDifficulty"
+          name="averageDifficulty"
+        />
+      </div>
+      <div class="form-group">
+        <label for="paymentCount">paymentCount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="paymentCount"
+          [(ngModel)]="currentBitcoin.paymentCount"
+          name="paymentCount"
+        />
+      </div>
+      <div class="form-group">
+        <label for="medianTxValue">medianTxValue</label>
+        <input
+          type="text"
+          class="form-control"
+          id="medianTxValue"
+          [(ngModel)]="currentBitcoin.medianTxValue"
+          name="medianTxValue"
+        />
+      </div>
+      <div class="form-group">
+        <label for="medianFee">medianFee</label>
+        <input
+          type="text"
+          class="form-control"
+          id="medianFee"
+          [(ngModel)]="currentBitcoin.medianFee"
+          name="medianFee"
+        />
+      </div>
+      <div class="form-group">
+        <label for="blockSize">blockSize</label>
+        <input
+          type="text"
+          class="form-control"
+          id="blockSize"
+          [(ngModel)]="currentBitcoin.blockSize"
+          name="blockSize"
+        />
+      </div>
+      <div class="form-group">
+        <label for="blockCount">blockCount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="blockCount"
+          [(ngModel)]="currentBitcoin.blockCount"
+          name="blockCount"
+        />
+      </div>
+    </form>
+
+    <button class="badge badge-danger mr-2" (click)="deleteBitcoin()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateBitcoin()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentBitcoin.id">
+    <br />
+    <p>Cannot access this Bitcoin entry...</p>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by date"
+        [(ngModel)]="date"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchDate()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Bitcoin Entry List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let bitcoin of bitcoins; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveBitcoin(bitcoin, i)"
+      >
+        {{ bitcoin.date }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllBitcoins()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentBitcoin">
+      <h4>Bitcoin</h4>
+      <div>
+        <label><strong>Date:</strong></label> {{ currentBitcoin.date }}
+      </div>
+      <div>
+        <label><strong>txVolume:</strong></label> {{ currentBitcoin.txVolume }}
+      </div>
+      <div>
+        <label><strong>adjustedTxVolume:</strong></label>
+        {{ currentBitcoin.adjustedTxVolume }}
+      </div>
+      <div>
+        <label><strong>txCount:</strong></label> {{ currentBitcoin.txCount }}
+      </div>
+      <div>
+        <label><strong>marketCap:</strong></label>
+        {{ currentBitcoin.marketCap }}
+      </div>
+      <div>
+        <label><strong>price:</strong></label> {{ currentBitcoin.price }}
+      </div>
+      <div>
+        <label><strong>exchangeVolume:</strong></label>
+        {{ currentBitcoin.exchangeVolume }}
+      </div>
+      <div>
+        <label><strong>generatedCoins:</strong></label>
+        {{ currentBitcoin.generatedCoins }}
+      </div>
+      <div>
+        <label><strong>fees:</strong></label> {{ currentBitcoin.fees }}
+      </div>
+      <div>
+        <label><strong>activeAddresses:</strong></label>
+        {{ currentBitcoin.activeAddresses }}
+      </div>
+      <div>
+        <label><strong>averageDifficulty:</strong></label>
+        {{ currentBitcoin.averageDifficulty }}
+      </div>
+      <div>
+        <label><strong>paymentCount:</strong></label>
+        {{ currentBitcoin.paymentCount }}
+      </div>
+      <div>
+        <label><strong>medianTxValue:</strong></label>
+        {{ currentBitcoin.medianTxValue }}
+      </div>
+      <div>
+        <label><strong>medianFee:</strong></label>
+        {{ currentBitcoin.medianFee }}
+      </div>
+      <div>
+        <label><strong>blockSize:</strong></label>
+        {{ currentBitcoin.blockSize }}
+      </div>
+      <div>
+        <label><strong>blockCount:</strong></label>
+        {{ currentBitcoin.blockCount }}
+      </div>
+
+      <a
+        class="badge badge-warning"
+        routerLink="/bitcoins/{{ currentBitcoin.id }}"
+      >
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentBitcoin">
+      <br />
+      <p>Please click on a Bitcoin Entry...</p>
+    </div>
+  </div>
+</div>

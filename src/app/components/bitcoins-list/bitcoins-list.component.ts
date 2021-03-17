@@ -1,8 +1,8 @@
 import { BitcoinService } from './../../services/bitcoin.service';
 import { Bitcoin } from './../../models/bitcoin.model';
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { Chart } from 'chart.js';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bitcoins-list',
@@ -10,6 +10,7 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./bitcoins-list.component.css'],
 })
 export class BitcoinsListComponent implements OnInit {
+  chart = [];
   bitcoins?: Bitcoin[];
   currentBitcoin?: Bitcoin;
   currentIndex = -1;
@@ -25,7 +26,41 @@ export class BitcoinsListComponent implements OnInit {
     this.bitcoinService.getAll().subscribe(
       (data) => {
         this.bitcoins = data;
+        let price = [1, 2, 3, 4];
+        let date = ['apr 1', 'apr2', 'apr 3', 'apr 4'];
+
         console.log(data);
+
+        this.chart = new Chart('canvas', {
+          type: 'line',
+          data: {
+            labels: this.bitcoins.map((labels) => labels.date),
+            datasets: [
+              {
+                data: this.bitcoins.map((labels) => labels.price),
+                borderColor: '#3cba9f',
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            legend: {
+              display: false,
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: true,
+                },
+              ],
+              yAxes: [
+                {
+                  display: true,
+                },
+              ],
+            },
+          },
+        });
       },
       (error) => {
         console.log(error);

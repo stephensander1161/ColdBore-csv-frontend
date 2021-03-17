@@ -18,6 +18,9 @@
       </div>
     </div>
   </div>
+  <div *ngIf="chart">
+    <canvas id="canvas" height="500" width="900">{{ chart }}</canvas>
+  </div>
   <div class="col-md-6">
     <h4>Bitcoin Entry List</h4>
     <ul class="list-group">

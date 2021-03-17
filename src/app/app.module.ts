@@ -1,3 +1,4 @@
+import { BitcoinService } from './services/bitcoin.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,7 @@ import { BitcoinsListComponent } from './components/bitcoins-list/bitcoins-list.
     BitcoinsListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  providers: [],
+  providers: [BitcoinService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

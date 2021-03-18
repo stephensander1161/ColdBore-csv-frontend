@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AddBitcoinComponent } from './components/add-bitcoin/add-bitcoin.component';
 import { BitcoinDetailsComponent } from './components/bitcoin-details/bitcoin-details.component';
 import { BitcoinsListComponent } from './components/bitcoins-list/bitcoins-list.component';
+import { AddCsvComponent } from './components/add-csv/add-csv.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { BitcoinsListComponent } from './components/bitcoins-list/bitcoins-list.
     AddBitcoinComponent,
     BitcoinDetailsComponent,
     BitcoinsListComponent,
+    AddCsvComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [BitcoinService],

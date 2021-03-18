@@ -2,7 +2,6 @@ import { BitcoinService } from './../../services/bitcoin.service';
 import { Bitcoin } from './../../models/bitcoin.model';
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bitcoins-list',
@@ -26,8 +25,6 @@ export class BitcoinsListComponent implements OnInit {
     this.bitcoinService.getAll().subscribe(
       (data) => {
         this.bitcoins = data;
-        let price = [1, 2, 3, 4];
-        let date = ['apr 1', 'apr2', 'apr 3', 'apr 4'];
 
         console.log(data);
 

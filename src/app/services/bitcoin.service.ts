@@ -23,6 +23,10 @@ export class BitcoinService {
     return this.http.post(baseUrl, data);
   }
 
+  createAll(data: any): Observable<any> {
+    return this.http.post(baseUrl, data);
+  }
+
   update(id: any, data: any): Observable<any> {
     return this.http.put(`${baseUrl}/${id}`, data);
   }

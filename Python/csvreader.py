@@ -18,7 +18,7 @@ def get_file_path():
     file_path= filedialog.askopenfilename(title = "Select A File", filetypes = ((".csv", "*.csv"), (".txt", "*.txt")))
     l1 = Label(window, font=("Raleway", 15), text = "File path: " + file_path)
     l1.grid(column=1, row=2)
-    browse_text.set("Browse...")
+    browse_text.set("Replace")
 
 def exit_program():
   sys.exit()
@@ -122,7 +122,7 @@ conn = psycopg2.connect(conn_string)
 cursor = conn.cursor()
 
 #drop tables with the same name
-cursor.execute("drop table if exists %s;" % (tbl_name))
+#cursor.execute("drop table if exists %s;" % (tbl_name))
 
 #create table
 cursor.execute("create table %s (%s);" % (tbl_name, col_str))
@@ -137,7 +137,7 @@ with open(file_path, newline='') as csvfile:
     print(row)
     cursor.execute("INSERT INTO %s (%s) \
       VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" \
-      % (tbl_name, cols), row[:15])
+      % (tbl_name, cols), row[:16])
     time.sleep(1)
     #make public
     cursor.execute('''grant select on table %s to public''' % (tbl_name))

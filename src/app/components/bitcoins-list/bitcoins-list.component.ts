@@ -14,11 +14,56 @@ export class BitcoinsListComponent implements OnInit {
   currentBitcoin?: Bitcoin;
   currentIndex = -1;
   date = '';
+  price = '';
 
   constructor(private bitcoinService: BitcoinService) {}
 
   ngOnInit(): void {
     this.retrieveBitcoins();
+  }
+
+  changeChart(): void {
+    this.bitcoinService.getAll().subscribe(
+      (data) => {
+        this.bitcoins = data;
+
+        console.log(data);
+
+        this.chart = new Chart('canvas', {
+          type: 'line',
+          data: {
+            labels: this.bitcoins.map((labels) => labels.txcount),
+            datasets: [
+              {
+                data: this.bitcoins.map((labels) => labels.adjustedtxvolume),
+                borderColor: '#3cba9f',
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            legend: {
+              display: false,
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: true,
+                },
+              ],
+              yAxes: [
+                {
+                  display: true,
+                },
+              ],
+            },
+          },
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   retrieveBitcoins(): void {
@@ -90,6 +135,18 @@ export class BitcoinsListComponent implements OnInit {
 
   searchDate(): void {
     this.bitcoinService.findByDate(this.date).subscribe(
+      (data) => {
+        this.bitcoins = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  searchPrice(): void {
+    this.bitcoinService.findByPrice(this.price).subscribe(
       (data) => {
         this.bitcoins = data;
         console.log(data);

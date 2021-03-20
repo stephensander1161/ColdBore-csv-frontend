@@ -42,4 +42,7 @@ export class BitcoinService {
   findByDate(date: any): Observable<Bitcoin[]> {
     return this.http.get<Bitcoin[]>(`${baseUrl}?date=${date}`);
   }
+  findByPrice(price: any): Observable<Bitcoin[]> {
+    return this.http.get<Bitcoin[]>(`${baseUrl}?price=${price}`);
+  }
 }

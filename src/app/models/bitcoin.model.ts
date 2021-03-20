@@ -1,19 +1,19 @@
 export class Bitcoin {
   id?: any;
   date?: string;
-  txVolume?: number;
-  adjustedTxVolume?: number;
-  txCount?: number;
-  marketCap?: number;
+  txvolume?: number;
+  adjustedtxvolume?: number;
+  txcount?: number;
+  marketcap?: number;
   price?: number;
-  exchangeVolume?: number;
-  generatedCoins?: number;
+  exchangevolume?: number;
+  generatedcoins?: number;
   fees?: number;
-  activeAddresses?: number;
-  averageDifficulty?: number;
-  paymentCount?: number;
-  medianTxValue?: number;
-  medianFee?: number;
-  blockSize?: number;
-  blockCount?: number;
+  activeaddresses?: number;
+  averagedifficulty?: number;
+  paymentcount?: number;
+  mediantxvalue?: number;
+  medianfee?: number;
+  blocksize?: number;
+  blockcount?: number;
 }

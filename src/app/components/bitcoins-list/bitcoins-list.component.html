@@ -17,6 +17,23 @@
         </button>
       </div>
     </div>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by price"
+        [(ngModel)]="price"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="changeChart()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
   </div>
   <div *ngIf="chart">
     <canvas id="canvas" height="500" width="900">{{ chart }}</canvas>

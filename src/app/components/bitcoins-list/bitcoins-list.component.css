@@ -3,3 +3,8 @@
 	max-width: 750px;
 	margin: auto;
 }
+
+#inboxContainer {
+	overflow: scroll;
+	height: 400px;
+}

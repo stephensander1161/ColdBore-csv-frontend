@@ -1,4 +1,4 @@
-<h1>Upload CSV</h1>
+<h1>CSV Quick View</h1>
 <div class="csv-file-chooser-section">
   <input
     type="file"
@@ -10,7 +10,7 @@
   />
 </div>
 
-<button class="btn btn-success">Add To Database</button>
+<!-- <button class="btn btn-success">Add To Database</button> -->
 
 <div class="csv-result-table">
   <div class="submit-form titles">
@@ -39,49 +39,49 @@
           <span>{{ csvData.date }}</span>
         </td>
         <td>
-          <span>{{ csvData.txVolume }}</span>
+          <span>{{ csvData.txvolume_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.adjustedTxVolume }}</span>
+          <span>{{ csvData.adjustedtxvolume_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.txCount }}</span>
+          <span>{{ csvData.txcount }}</span>
         </td>
         <td>
-          <span>{{ csvData.marketcap }}</span>
+          <span>{{ csvData.marketcap_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.price }}</span>
+          <span>{{ csvData.price_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.exchangeVolume }}</span>
+          <span>{{ csvData.exchangevolume_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.generatedCoins }}</span>
+          <span>{{ csvData.generatedcoins }}</span>
         </td>
         <td>
           <span>{{ csvData.fees }}</span>
         </td>
         <td>
-          <span>{{ csvData.activeAddresses }}</span>
+          <span>{{ csvData.activeaddresses }}</span>
         </td>
         <td>
-          <span>{{ csvData.averageDifficulty }}</span>
+          <span>{{ csvData.averagedifficulty }}</span>
         </td>
         <td>
-          <span>{{ csvData.paymentCount }}</span>
+          <span>{{ csvData.paymentcount }}</span>
         </td>
         <td>
-          <span>{{ csvData.medianTxValue }}</span>
+          <span>{{ csvData.mediantxvalue_usd }}</span>
         </td>
         <td>
-          <span>{{ csvData.medianFee }}</span>
+          <span>{{ csvData.medianfee }}</span>
         </td>
         <td>
-          <span>{{ csvData.blockSize }}</span>
+          <span>{{ csvData.blocksize }}</span>
         </td>
         <td>
-          <span>{{ csvData.blockCount }}</span>
+          <span>{{ csvData.blockcount }}</span>
         </td>
       </tr>
     </tbody>

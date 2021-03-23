@@ -1,7 +1,8 @@
+import { BarChartComponent } from './../bar-chart/bar-chart.component';
 import { BitcoinService } from './../../services/bitcoin.service';
 import { Bitcoin } from './../../models/bitcoin.model';
-import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bitcoins-list',
@@ -9,7 +10,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./bitcoins-list.component.css'],
 })
 export class BitcoinsListComponent implements OnInit {
-  chart = [];
+  line = [];
   bitcoins?: Bitcoin[];
   currentBitcoin?: Bitcoin;
   currentIndex = -1;
@@ -22,50 +23,6 @@ export class BitcoinsListComponent implements OnInit {
     this.retrieveBitcoins();
   }
 
-  changeChart(): void {
-    this.bitcoinService.getAll().subscribe(
-      (data) => {
-        this.bitcoins = data;
-
-        console.log(data);
-
-        this.chart = new Chart('canvas', {
-          type: 'line',
-          data: {
-            labels: this.bitcoins.map((labels) => labels.txcount),
-            datasets: [
-              {
-                data: this.bitcoins.map((labels) => labels.adjustedtxvolume),
-                borderColor: '#3cba9f',
-                fill: false,
-              },
-            ],
-          },
-          options: {
-            legend: {
-              display: false,
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                },
-              ],
-              yAxes: [
-                {
-                  display: true,
-                },
-              ],
-            },
-          },
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
   retrieveBitcoins(): void {
     this.bitcoinService.getAll().subscribe(
       (data) => {
@@ -73,13 +30,13 @@ export class BitcoinsListComponent implements OnInit {
 
         console.log(data);
 
-        this.chart = new Chart('canvas', {
+        this.line = new Chart('line', {
           type: 'line',
           data: {
             labels: this.bitcoins.map((labels) => labels.date),
             datasets: [
               {
-                data: this.bitcoins.map((labels) => labels.price),
+                data: this.bitcoins.map((labels) => labels.generatedcoins),
                 borderColor: '#3cba9f',
                 fill: false,
               },

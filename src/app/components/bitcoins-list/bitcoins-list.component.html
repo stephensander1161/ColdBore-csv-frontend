@@ -1,4 +1,8 @@
 <div class="list row">
+  <div *ngIf="line">
+    <canvas id="line" height="500" width="900">{{ line }}</canvas>
+  </div>
+
   <div class="col-md-8">
     <div class="input-group mb-3">
       <input
@@ -17,31 +21,11 @@
         </button>
       </div>
     </div>
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by price"
-        [(ngModel)]="price"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="changeChart()"
-        >
-          Search
-        </button>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="chart">
-    <canvas id="canvas" height="500" width="900">{{ chart }}</canvas>
   </div>
   <div class="col-md-6">
     <h4>Bitcoin Entry List</h4>
 
-    <ul class="list-group">
+    <ul id="inboxContainer" class="list-group">
       <li
         class="list-group-item"
         *ngFor="let bitcoin of bitcoins; let i = index"
@@ -63,68 +47,69 @@
         <label><strong>Date:</strong></label> {{ currentBitcoin.date }}
       </div>
       <div>
-        <label><strong>txVolume:</strong></label> {{ currentBitcoin.txVolume }}
+        <label><strong>TX Volume:</strong></label>
+        {{ currentBitcoin.txvolume_usd }}
       </div>
       <div>
-        <label><strong>adjustedTxVolume:</strong></label>
-        {{ currentBitcoin.adjustedTxVolume }}
+        <label><strong>Adjusted TX Volume:</strong></label>
+        {{ currentBitcoin.adjustedtxvolume_usd }}
       </div>
       <div>
-        <label><strong>txCount:</strong></label> {{ currentBitcoin.txCount }}
+        <label><strong>TX Count:</strong></label> {{ currentBitcoin.txcount }}
       </div>
       <div>
-        <label><strong>marketCap:</strong></label>
-        {{ currentBitcoin.marketCap }}
+        <label><strong>Market Cap:</strong></label>
+        {{ currentBitcoin.marketcap_usd }}
       </div>
       <div>
-        <label><strong>price:</strong></label> {{ currentBitcoin.price }}
+        <label><strong>Price:</strong></label> {{ currentBitcoin.price_usd }}
       </div>
       <div>
-        <label><strong>exchangeVolume:</strong></label>
-        {{ currentBitcoin.exchangeVolume }}
+        <label><strong>Exchange Volume:</strong></label>
+        {{ currentBitcoin.exchangevolume_usd }}
       </div>
       <div>
-        <label><strong>generatedCoins:</strong></label>
-        {{ currentBitcoin.generatedCoins }}
+        <label><strong>Generated Coins:</strong></label>
+        {{ currentBitcoin.generatedcoins }}
       </div>
       <div>
-        <label><strong>fees:</strong></label> {{ currentBitcoin.fees }}
+        <label><strong>Fees:</strong></label> {{ currentBitcoin.fees }}
       </div>
       <div>
-        <label><strong>activeAddresses:</strong></label>
-        {{ currentBitcoin.activeAddresses }}
+        <label><strong>Active Addresses:</strong></label>
+        {{ currentBitcoin.activeaddresses }}
       </div>
       <div>
-        <label><strong>averageDifficulty:</strong></label>
-        {{ currentBitcoin.averageDifficulty }}
+        <label><strong>Average Difficulty:</strong></label>
+        {{ currentBitcoin.averagedifficulty }}
       </div>
       <div>
-        <label><strong>paymentCount:</strong></label>
-        {{ currentBitcoin.paymentCount }}
+        <label><strong>Payment Count:</strong></label>
+        {{ currentBitcoin.paymentcount }}
       </div>
       <div>
-        <label><strong>medianTxValue:</strong></label>
-        {{ currentBitcoin.medianTxValue }}
+        <label><strong>Median TX Value:</strong></label>
+        {{ currentBitcoin.mediantxvalue_usd }}
       </div>
       <div>
-        <label><strong>medianFee:</strong></label>
-        {{ currentBitcoin.medianFee }}
+        <label><strong>Median Fee:</strong></label>
+        {{ currentBitcoin.medianfee }}
       </div>
       <div>
-        <label><strong>blockSize:</strong></label>
-        {{ currentBitcoin.blockSize }}
+        <label><strong>Block Size:</strong></label>
+        {{ currentBitcoin.blocksize }}
       </div>
       <div>
-        <label><strong>blockCount:</strong></label>
-        {{ currentBitcoin.blockCount }}
+        <label><strong>Block Count:</strong></label>
+        {{ currentBitcoin.blockcount }}
       </div>
 
-      <a
+      <!-- <a
         class="badge badge-warning"
         routerLink="/bitcoins/{{ currentBitcoin.id }}"
       >
         Edit
-      </a>
+      </a> -->
     </div>
 
     <div *ngIf="!currentBitcoin">

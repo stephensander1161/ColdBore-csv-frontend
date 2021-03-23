@@ -1,3 +1,4 @@
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BitcoinService } from './services/bitcoin.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,7 @@ import { AddCsvComponent } from './components/add-csv/add-csv.component';
     BitcoinDetailsComponent,
     BitcoinsListComponent,
     AddCsvComponent,
+    BarChartComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [BitcoinService],

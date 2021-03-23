@@ -3,6 +3,7 @@ import { BitcoinService } from './../../services/bitcoin.service';
 import { Bitcoin } from './../../models/bitcoin.model';
 import { Chart } from 'chart.js';
 import { Component, OnInit } from '@angular/core';
+import 'chartjs-plugin-zoom';
 
 @Component({
   selector: 'app-bitcoins-list',
@@ -42,7 +43,17 @@ export class BitcoinsListComponent implements OnInit {
               },
             ],
           },
+
           options: {
+            pan: {
+              enabled: true,
+              mode: 'xy',
+            },
+            zoom: {
+              enabled: true,
+              mode: 'xy',
+            },
+            responsive: true,
             legend: {
               display: false,
             },

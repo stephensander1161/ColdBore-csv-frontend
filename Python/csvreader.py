@@ -132,7 +132,7 @@ def insert_data_bulk():
   conn.commit()
 
   print('im in the loop')
-  l1 = Label(window, font=("Raleway", 15), text = "Record {0} Created".format(tbl_name), padx=15, pady=15)
+  l1 = Label(window, font=("Raleway", 15), text = "Table {0} Created".format(tbl_name), padx=15, pady=15)
   l1.grid(column=1, row=5)
 
 

@@ -2,6 +2,13 @@
   <div *ngIf="line">
     <canvas id="line" height="500" width="900">{{ line }}</canvas>
   </div>
+  <button
+    onClick="setInterval(function(){
+   window.location.reload(1);
+}, 1);"
+  >
+    Refresh Page
+  </button>
 
   <div class="col-md-8">
     <div class="input-group mb-3">

@@ -2,13 +2,6 @@
   <div *ngIf="line">
     <canvas id="line" height="500" width="900">{{ line }}</canvas>
   </div>
-  <button
-    onClick="setInterval(function(){
-   window.location.reload(1);
-}, 1);"
-  >
-    Refresh Page
-  </button>
 
   <div class="col-md-8">
     <div class="input-group mb-3">
@@ -25,6 +18,25 @@
           (click)="searchDate()"
         >
           Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by Generated Coins"
+        [(ngModel)]="generatedcoins"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchGeneratedCoins()"
+        >
+          Search Generated Coins
         </button>
       </div>
     </div>
@@ -121,6 +133,7 @@
 
     <div *ngIf="!currentBitcoin">
       <br />
+
       <p>Please click on a Bitcoin Entry...</p>
     </div>
   </div>

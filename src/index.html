@@ -12,5 +12,24 @@
   </head>
   <body>
     <app-root></app-root>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC3TKi-FFzMJS0XwJAAVn-RPdc7VrIhyBg",
+        authDomain: "coldbore-csv-frontend.firebaseapp.com",
+        projectId: "coldbore-csv-frontend",
+        storageBucket: "coldbore-csv-frontend.appspot.com",
+        messagingSenderId: "30715078988",
+        appId: "1:30715078988:web:7d4b0f549b06320a3287e9",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
   </body>
 </html>

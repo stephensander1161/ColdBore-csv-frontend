@@ -21,6 +21,7 @@
 		"@angular/router": "~10.1.5",
 		"@popperjs/core": "^2.9.1",
 		"bootstrap": "^4.6.0",
+		"bootstrap-icons": "^1.4.0",
 		"chart.js": "^2.9.4",
 		"chartjs-plugin-zoom": "^0.7.7",
 		"jquery": "^3.6.0",

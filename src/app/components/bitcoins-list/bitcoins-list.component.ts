@@ -18,6 +18,9 @@ export class BitcoinsListComponent implements OnInit {
   currentIndex = -1;
   date = '';
   price = '';
+  activeaddresses = null;
+  fees = 0;
+  generatedcoins = '';
 
   constructor(private bitcoinService: BitcoinService) {}
 
@@ -106,6 +109,13 @@ export class BitcoinsListComponent implements OnInit {
                 borderColor: 'red',
                 fill: false,
               },
+              {
+                label: 'Block Count',
+
+                data: this.bitcoins.map((labels) => labels.blockcount),
+                borderColor: 'blue',
+                fill: false,
+              },
             ],
           },
 
@@ -178,8 +188,8 @@ export class BitcoinsListComponent implements OnInit {
     );
   }
 
-  searchPrice(): void {
-    this.bitcoinService.findByPrice(this.price).subscribe(
+  searchGeneratedCoins(): void {
+    this.bitcoinService.findByGeneratedCoins(this.generatedcoins).subscribe(
       (data) => {
         this.bitcoins = data;
         console.log(data);

@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8080/api/bitcoins';
+const baseUrl = 'https://cold-bore-csv-backend.herokuapp.com/api/bitcoins';
+//const baseUrl = 'http://localhost:8080/api/bitcoins';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,9 @@ export class BitcoinService {
   findByDate(date: any): Observable<Bitcoin[]> {
     return this.http.get<Bitcoin[]>(`${baseUrl}?date=${date}`);
   }
-  findByPrice(price: any): Observable<Bitcoin[]> {
-    return this.http.get<Bitcoin[]>(`${baseUrl}?price=${price}`);
+  findByGeneratedCoins(generatedcoins: any): Observable<Bitcoin[]> {
+    return this.http.get<Bitcoin[]>(
+      `${baseUrl}?generatedcoins=${generatedcoins}`
+    );
   }
 }

@@ -4,14 +4,25 @@ import { Chart } from 'chart.js';
 import { Component, OnInit } from '@angular/core';
 import 'chartjs-plugin-zoom';
 
+import { io } from 'socket.io-client';
+
+const socket = io('https://cold-bore-csv-backend.herokuapp.com');
+//const socket = io('http://localhost:8080');
+
 @Component({
   selector: 'app-bitcoins-list',
   templateUrl: './bitcoins-list.component.html',
   styleUrls: ['./bitcoins-list.component.css'],
 })
 export class BitcoinsListComponent implements OnInit {
+  title = 'dashboard';
+  chart;
+  chart2 = [];
+  pie: any;
+  doughnut: any;
+
+  data1 = [];
   line = [];
-  update = [];
 
   bitcoins?: Bitcoin[];
   currentBitcoin?: Bitcoin;
@@ -25,63 +36,191 @@ export class BitcoinsListComponent implements OnInit {
   constructor(private bitcoinService: BitcoinService) {}
 
   ngOnInit(): void {
-    this.retrieveBitcoins();
-  }
+    //this.retrieveBitcoins();
 
-  reloadChart(): void {
-    this.line = [];
-    this.bitcoinService.getAll().subscribe(
-      (data) => {
-        this.bitcoins = data;
+    socket.on('data1', (res) => {
+      this.bitcoinService.getAll().subscribe(
+        (data) => {
+          this.bitcoins = data;
 
-        console.log(data);
+          console.log(data);
 
-        this.update = new Chart('update', {
-          type: 'line',
-          data: {
-            labels: this.bitcoins.map((labels) => labels.date),
-            datasets: [
+          this.line = new Chart('line', {
+            type: 'line',
+            data: {
+              labels: this.bitcoins.map((labels) => labels.date),
+              datasets: [
+                {
+                  label: 'Generated Coins',
+                  data: this.bitcoins.map((labels) => labels.generatedcoins),
+                  borderColor: '#3cba9f',
+                  fill: false,
+                },
+                {
+                  label: 'Block Size',
+
+                  data: this.bitcoins.map((labels) => labels.blocksize),
+                  borderColor: 'red',
+                  fill: false,
+                },
+                {
+                  label: 'Block Count',
+
+                  data: this.bitcoins.map((labels) => labels.blockcount),
+                  borderColor: 'blue',
+                  fill: false,
+                },
+              ],
+            },
+
+            options: {
+              pan: {
+                enabled: true,
+                mode: 'xy',
+              },
+              animation: {
+                duration: 0,
+              },
+              zoom: {
+                enabled: true,
+                mode: 'xy',
+              },
+              responsive: true,
+              legend: {
+                display: true,
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                  },
+                ],
+              },
+            },
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
+
+    socket.on('data2', (res) => {
+      this.line = new Chart('line', {
+        type: 'line',
+        data: {
+          labels: this.bitcoins.map((labels) => labels.date),
+          datasets: [
+            {
+              label: 'Generated Coins',
+              data: this.bitcoins.map((labels) => labels.generatedcoins),
+              borderColor: '#3cba9f',
+              fill: false,
+            },
+            {
+              label: 'Block Size',
+
+              data: this.bitcoins.map((labels) => labels.blocksize),
+              borderColor: 'red',
+              fill: false,
+            },
+            {
+              label: 'Block Count',
+
+              data: this.bitcoins.map((labels) => labels.blockcount),
+              borderColor: 'blue',
+              fill: false,
+            },
+          ],
+        },
+
+        options: {
+          pan: {
+            enabled: true,
+            mode: 'xy',
+          },
+          animation: {
+            duration: 0,
+          },
+          zoom: {
+            enabled: true,
+            mode: 'xy',
+          },
+          responsive: true,
+          legend: {
+            display: true,
+          },
+          scales: {
+            xAxes: [
               {
-                label: 'TEST',
-                data: this.bitcoins.map((labels) => labels.generatedcoins),
-                borderColor: '#3cba9f',
-                fill: false,
+                display: true,
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
               },
             ],
           },
+        },
+      });
 
-          options: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              enabled: true,
-              mode: 'xy',
-            },
-            responsive: true,
-            legend: {
-              display: true,
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                },
-              ],
-              yAxes: [
-                {
-                  display: true,
-                },
-              ],
-            },
+      this.updateChartData(this.line, res, 1);
+    });
+
+    let options = {
+      // aspectRatio: 1,
+      // legend: false,
+      tooltips: false,
+
+      elements: {
+        point: {
+          borderWidth: function (context) {
+            return Math.min(Math.max(1, context.datasetIndex + 1), 8);
           },
-        });
+          hoverBackgroundColor: 'transparent',
+          hoverBorderColor: function (context) {
+            return 'red';
+          },
+          hoverBorderWidth: function (context) {
+            var value = context.dataset.data[context.dataIndex];
+            return Math.round((8 * value.v) / 1000);
+          },
+          radius: function (context) {
+            var value = context.dataset.data[context.dataIndex];
+            var size = context.chart.width;
+            var base = Math.abs(value.v) / 1000;
+            return (size / 24) * base;
+          },
+        },
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+    };
+  }
+
+  addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(data);
+    });
+    chart.update();
+  }
+
+  removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+    });
+    chart.update();
+  }
+
+  updateChartData(chart, data, dataSetIndex) {
+    chart.data.datasets[dataSetIndex].data = data;
+    chart.update();
   }
 
   retrieveBitcoins(): void {
@@ -178,18 +317,6 @@ export class BitcoinsListComponent implements OnInit {
 
   searchDate(): void {
     this.bitcoinService.findByDate(this.date).subscribe(
-      (data) => {
-        this.bitcoins = data;
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  searchGeneratedCoins(): void {
-    this.bitcoinService.findByGeneratedCoins(this.generatedcoins).subscribe(
       (data) => {
         this.bitcoins = data;
         console.log(data);

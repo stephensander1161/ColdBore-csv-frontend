@@ -33,20 +33,12 @@ export class LineFixedComponent implements OnInit {
             labels: this.bitcoins.map((labels) => labels.date),
             datasets: [
               {
-                label: 'TX Volume (USD)',
-                data: this.bitcoins.map((labels) => labels.txvolume_usd),
-                borderColor: 'lilac',
-                backgroundColor: 'lilac',
-
-                fill: false,
-              },
-              {
                 label: 'Adjusted TX Volume (USD)',
                 data: this.bitcoins.map(
                   (labels) => labels.adjustedtxvolume_usd
                 ),
-                borderColor: 'magenta',
-                backgroundColor: 'magenta',
+                borderColor: 'blue',
+                backgroundColor: 'blue',
 
                 fill: false,
               },

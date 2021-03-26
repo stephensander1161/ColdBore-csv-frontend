@@ -11,6 +11,9 @@ import 'chartjs-plugin-zoom';
 })
 export class BarFixedComponent implements OnInit {
   bar_fixed = [];
+  currentBitcoin?: Bitcoin;
+  currentIndex = -1;
+  date = '';
 
   bitcoins?: Bitcoin[];
 

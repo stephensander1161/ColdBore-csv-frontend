@@ -1,0 +1,22 @@
+.list {
+	text-align: left;
+	max-width: 750px;
+	margin: auto;
+}
+
+#inboxContainer {
+	overflow: scroll;
+	height: 400px;
+}
+
+.background {
+	background-image: url("logo.png");
+	background-color: black;
+	background-repeat: no-repeat;
+	background-size: auto;
+	height: 500px;
+	width: 300px;
+	float: right;
+	margin-left: 400px;
+	text-align: center;
+}

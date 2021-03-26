@@ -18,7 +18,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'bitcoins', pathMatch: 'full' },
+  { path: '', redirectTo: 'linechart', pathMatch: 'full' },
   { path: 'bitcoins', component: BitcoinsListComponent },
   { path: 'bitcoins/:id', component: BitcoinDetailsComponent },
   { path: 'add', component: AddBitcoinComponent },

@@ -27,12 +27,16 @@ def define_table_values():
   global col_str
   try:
     df = pd.read_csv(file_path)
+    df = df[df.date != '2009-02-10']
+
+
     filename = os.path.basename(file_path)
     clean_tbl_name = filename.lower().replace(" ","_").replace("?","") \
       .replace("-","_").replace(r"/","_").replace("\\","_").replace("%","") \
       .replace(")","").replace(r"(","_").replace("$","")
     #remove .csv extension from clean_tbl_name
     tbl_name = '{0}'.format(clean_tbl_name.split('.')[0])
+
     #clean header names, lower case letters, remove all white spaces, replace -, /, \\, $ with _
     df.columns = [x.lower().replace(" ","_").replace("?","") \
       .replace("-","_").replace(r"/","_").replace("\\","_").replace("%","") \
@@ -45,6 +49,7 @@ def define_table_values():
       'timedelta64[ns]': 'varchar',
       'double': 'varchar'
     }
+
     #get cols with datatypes for table creation
     col_str = ", ".join("{} {}".format(n, d) for (n, d) in zip(df.columns, df.dtypes.replace(replacements)))
     print(col_str)
@@ -87,8 +92,9 @@ def define_table_values_bulk():
       'int64': 'int',
       'datetime64': 'timestamp',
       'timedelta64[ns]': 'varchar',
-
     }
+
+
     #get cols with datatypes for table creation
     col_str = ", ".join("{} {}".format(n, d) for (n, d) in zip(df.columns, df.dtypes.replace(replacements)))
     print(col_str)
@@ -105,9 +111,30 @@ def define_table_values_bulk():
     l1 = Label(window, font=("Raleway", 15), text = "Please Select a File First!", padx=15, pady=15)
     l1.grid(column=1, row=5)
 
-def insert_data_bulk():
+def insert_data():
   drop_table_if_exists()
   #create table
+  cursor.execute("create table IF NOT EXISTS %s (%s);" % (tbl_name, col_str))
+
+  with open(file_path, newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    next(csvfile)
+    for row in reader:
+      #print(row)
+      if all(row):
+        cursor.execute("INSERT INTO %s (%s) \
+          VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" \
+          % (tbl_name, cols), row[:16])
+        time.sleep(1)
+        #make public
+        cursor.execute('''grant select on table %s to public''' % (tbl_name))
+        conn.commit()
+
+        print('im in the loop')
+
+
+def insert_data_bulk():
+  drop_table_if_exists()
   #create table
   cursor.execute("create table %s (%s);" % (tbl_name, col_str))
   print('{0} was created successfully'.format(tbl_name))
@@ -137,28 +164,6 @@ def insert_data_bulk():
 
 
 
-def insert_data():
-  drop_table_if_exists()
-  #create table
-  cursor.execute("create table IF NOT EXISTS %s (%s);" % (tbl_name, col_str))
-
-
-
-  with open(file_path, newline='') as csvfile:
-    reader = csv.reader(csvfile)
-    next(csvfile)
-    for row in reader:
-      print(row)
-
-      cursor.execute("INSERT INTO %s (%s) \
-        VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" \
-        % (tbl_name, cols), row[:16])
-      time.sleep(1)
-      #make public
-      cursor.execute('''grant select on table %s to public''' % (tbl_name))
-      conn.commit()
-
-      print('im in the loop')
 
 
 

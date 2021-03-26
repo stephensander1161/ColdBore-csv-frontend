@@ -29,7 +29,6 @@ export class PolarFixedComponent implements OnInit {
         this.polar_fixed = new Chart('polar_fixed', {
           type: 'polarArea',
           data: {
-            labels: this.bitcoins.map((labels) => labels.date),
             datasets: [
               {
                 label: 'Generated Coins',

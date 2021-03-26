@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BitcoinService } from '../../../services/bitcoin.service';
 import { Bitcoin } from '../../../models/bitcoin.model';
+
 import { Chart } from 'chart.js';
 import 'chartjs-plugin-zoom';
 @Component({

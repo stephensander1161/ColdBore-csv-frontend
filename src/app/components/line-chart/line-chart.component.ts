@@ -32,8 +32,8 @@ export class LineChartComponent implements OnInit {
               labels: this.bitcoins.map((labels) => labels.date),
               datasets: [
                 {
-                  label: 'TX Count',
-                  data: this.bitcoins.map((labels) => labels.txcount),
+                  label: 'Price',
+                  data: this.bitcoins.map((labels) => labels.price_usd),
                   borderColor: 'red',
                   backgroundColor: 'black',
                   fill: false,
@@ -41,7 +41,7 @@ export class LineChartComponent implements OnInit {
                 {
                   label: 'Block Count',
                   data: this.bitcoins.map((labels) => labels.blockcount),
-                  borderColor: '#3cba9f',
+                  borderColor: 'blue',
                   backgroundColor: 'blue',
                   fill: false,
                 },

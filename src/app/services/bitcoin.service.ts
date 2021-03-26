@@ -43,9 +43,4 @@ export class BitcoinService {
   findByDate(date: any): Observable<Bitcoin[]> {
     return this.http.get<Bitcoin[]>(`${baseUrl}?date=${date}`);
   }
-  findByGeneratedCoins(generatedcoins: any): Observable<Bitcoin[]> {
-    return this.http.get<Bitcoin[]>(
-      `${baseUrl}?generatedcoins=${generatedcoins}`
-    );
-  }
 }

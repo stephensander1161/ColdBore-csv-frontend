@@ -8,12 +8,12 @@ import { io } from 'socket.io-client';
 const socket = io('https://cold-bore-csv-backend.herokuapp.com');
 //const socket = io('http://localhost:8080');
 @Component({
-  selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.css'],
+  selector: 'app-radar-chart',
+  templateUrl: './radar-chart.component.html',
+  styleUrls: ['./radar-chart.component.css'],
 })
-export class PieChartComponent implements OnInit {
-  pie = [];
+export class RadarChartComponent implements OnInit {
+  radar = [];
   bitcoins?: Bitcoin[];
   constructor(private bitcoinService: BitcoinService) {}
 
@@ -25,36 +25,23 @@ export class PieChartComponent implements OnInit {
 
           console.log(data);
 
-          this.pie = new Chart('pie', {
-            type: 'pie',
+          this.radar = new Chart('radar', {
+            type: 'radar',
             data: {
+              labels: this.bitcoins.map((labels) => labels.price_usd),
               datasets: [
                 {
-                  label: 'TX Count',
-                  data: this.bitcoins.map((labels) => labels.txcount),
-                  borderColor: 'black',
-                  backgroundColor: 'red',
+                  label: 'Fees',
+                  data: this.bitcoins.map((labels) => labels.fees),
+                  borderColor: '#3cba9f',
+                  backgroundColor: 'green',
                   fill: false,
                 },
                 {
-                  label: 'Active Addresses',
-                  data: this.bitcoins.map((labels) => labels.activeaddresses),
-                  borderColor: 'black',
-                  backgroundColor: 'blue',
-                  fill: false,
-                },
-                {
-                  label: 'TX Count',
-                  data: this.bitcoins.map((labels) => labels.txcount),
-                  borderColor: 'black',
-                  backgroundColor: 'red',
-                  fill: false,
-                },
-                {
-                  label: 'Active Addresses',
-                  data: this.bitcoins.map((labels) => labels.activeaddresses),
-                  borderColor: 'black',
-                  backgroundColor: 'blue',
+                  label: 'Price (USD)',
+                  data: this.bitcoins.map((labels) => labels.price_usd),
+                  borderColor: 'blue',
+                  backgroundColor: 'black',
                   fill: false,
                 },
               ],

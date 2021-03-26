@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { BitcoinService } from './../../services/bitcoin.service';
 import { Bitcoin } from './../../models/bitcoin.model';
 import { Chart } from 'chart.js';
+
+import { io } from 'socket.io-client';
+
+const socket = io('https://cold-bore-csv-backend.herokuapp.com');
+//const socket = io('http://localhost:8080');
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css'],
 })
 export class BarChartComponent implements OnInit {
-  chart = [];
+  bars = [];
   bitcoins?: Bitcoin[];
   date = '';
   price = '';
@@ -16,50 +21,90 @@ export class BarChartComponent implements OnInit {
   constructor(private bitcoinService: BitcoinService) {}
 
   ngOnInit(): void {
-    this.retrieveBitcoins();
-  }
+    socket.on('data1', (res) => {
+      this.bitcoinService.getAll().subscribe(
+        (data) => {
+          this.bitcoins = data;
 
-  retrieveBitcoins(): void {
-    this.bitcoinService.getAll().subscribe(
-      (data) => {
-        this.bitcoins = data;
+          console.log(data);
 
-        console.log(data);
-
-        this.chart = new Chart('canvas', {
-          type: 'bar',
-          data: {
-            labels: this.bitcoins.map((labels) => labels.date),
-            datasets: [
-              {
-                data: this.bitcoins.map((labels) => labels.price_usd),
-                borderColor: '#3cba9f',
-                fill: false,
+          this.bars = new Chart('bars', {
+            type: 'bar',
+            data: {
+              labels: this.bitcoins.map((labels) => labels.date),
+              datasets: [
+                {
+                  label: 'TX Volume (USD)',
+                  data: this.bitcoins.map((labels) => labels.txvolume_usd),
+                  borderColor: '#3cba9f',
+                  backgroundColor: 'red',
+                  fill: false,
+                },
+                {
+                  label: 'Adjusted TX Volume (USD)',
+                  data: this.bitcoins.map(
+                    (labels) => labels.adjustedtxvolume_usd
+                  ),
+                  borderColor: '#3cba9f',
+                  backgroundColor: 'blue',
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              legend: {
+                display: true,
               },
-            ],
-          },
-          options: {
-            legend: {
-              display: false,
+              animation: {
+                duration: 0,
+              },
+              scales: {
+                xAxes: [
+                  {
+                    display: true,
+                  },
+                ],
+                yAxes: [
+                  {
+                    display: true,
+                  },
+                ],
+              },
             },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                },
-              ],
-              yAxes: [
-                {
-                  display: true,
-                },
-              ],
-            },
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
+
+    let options = {
+      // aspectRatio: 1,
+      // legend: false,
+      tooltips: false,
+
+      elements: {
+        point: {
+          borderWidth: function (context) {
+            return Math.min(Math.max(1, context.datasetIndex + 1), 8);
           },
-        });
+          hoverBackgroundColor: 'transparent',
+          hoverBorderColor: function (context) {
+            return 'red';
+          },
+          hoverBorderWidth: function (context) {
+            var value = context.dataset.data[context.dataIndex];
+            return Math.round((8 * value.v) / 1000);
+          },
+          radius: function (context) {
+            var value = context.dataset.data[context.dataIndex];
+            var size = context.chart.width;
+            var base = Math.abs(value.v) / 1000;
+            return (size / 24) * base;
+          },
+        },
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+    };
   }
 }

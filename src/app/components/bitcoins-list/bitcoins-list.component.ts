@@ -51,23 +51,24 @@ export class BitcoinsListComponent implements OnInit {
               labels: this.bitcoins.map((labels) => labels.date),
               datasets: [
                 {
-                  label: 'Generated Coins',
-                  data: this.bitcoins.map((labels) => labels.generatedcoins),
-                  borderColor: '#3cba9f',
-                  fill: false,
-                },
-                {
-                  label: 'Block Size',
-
-                  data: this.bitcoins.map((labels) => labels.blocksize),
-                  borderColor: 'red',
-                  fill: false,
-                },
-                {
                   label: 'Block Count',
 
                   data: this.bitcoins.map((labels) => labels.blockcount),
                   borderColor: 'blue',
+                  fill: false,
+                },
+                {
+                  label: 'Active Addresses',
+
+                  data: this.bitcoins.map((labels) => labels.activeaddresses),
+                  borderColor: 'green',
+                  fill: false,
+                },
+                {
+                  label: 'TX Count',
+
+                  data: this.bitcoins.map((labels) => labels.txcount),
+                  borderColor: 'pink',
                   fill: false,
                 },
               ],
@@ -75,7 +76,7 @@ export class BitcoinsListComponent implements OnInit {
 
             options: {
               pan: {
-                enabled: true,
+                enabled: false,
                 mode: 'xy',
               },
               animation: {
@@ -83,7 +84,7 @@ export class BitcoinsListComponent implements OnInit {
               },
               zoom: {
                 enabled: true,
-                mode: 'xy',
+                mode: 'y',
               },
               responsive: true,
               legend: {
@@ -108,69 +109,6 @@ export class BitcoinsListComponent implements OnInit {
           console.log(error);
         }
       );
-    });
-
-    socket.on('data2', (res) => {
-      this.line = new Chart('line', {
-        type: 'line',
-        data: {
-          labels: this.bitcoins.map((labels) => labels.date),
-          datasets: [
-            {
-              label: 'Generated Coins',
-              data: this.bitcoins.map((labels) => labels.generatedcoins),
-              borderColor: '#3cba9f',
-              fill: false,
-            },
-            {
-              label: 'Block Size',
-
-              data: this.bitcoins.map((labels) => labels.blocksize),
-              borderColor: 'red',
-              fill: false,
-            },
-            {
-              label: 'Block Count',
-
-              data: this.bitcoins.map((labels) => labels.blockcount),
-              borderColor: 'blue',
-              fill: false,
-            },
-          ],
-        },
-
-        options: {
-          pan: {
-            enabled: true,
-            mode: 'xy',
-          },
-          animation: {
-            duration: 0,
-          },
-          zoom: {
-            enabled: true,
-            mode: 'xy',
-          },
-          responsive: true,
-          legend: {
-            display: true,
-          },
-          scales: {
-            xAxes: [
-              {
-                display: true,
-              },
-            ],
-            yAxes: [
-              {
-                display: true,
-              },
-            ],
-          },
-        },
-      });
-
-      this.updateChartData(this.line, res, 1);
     });
 
     let options = {
